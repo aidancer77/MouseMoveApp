@@ -9,7 +9,7 @@ namespace MouseMoveApp
 {
     internal class AppContext : DbContext
     {
-        public DbSet<ListInfo> MouseMoves { get; set; }
+        public DbSet<DataGrid> MouseMoves { get; set; }
 
         public AppContext() : base("DefaultConnection") { }
     }

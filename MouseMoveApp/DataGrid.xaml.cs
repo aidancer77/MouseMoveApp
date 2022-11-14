@@ -17,24 +17,22 @@ namespace MouseMoveApp
     /// <summary>
     /// Логика взаимодействия для ListInfo.xaml
     /// </summary>
-    public partial class ListInfo : Window
+    public partial class DataGrid : Window
     {
-        public string date_time { get; set; }
-        public string action { get; set; }
-        public string coord { get; set; }
+        public string Date_time { get; set; }
+        public string Action_name { get; set; }
+        public string Coordinate { get; set; }
 
-        public ListInfo()
+        public DataGrid()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
-        public ListInfo(string date_time, string action, string coord)
+        public DataGrid(string date_time, string action, string coord)
         {
-            this.date_time = date_time;
-            this.action = action;
-            this.coord = coord;
+            this.Date_time = date_time;
+            this.Action_name = action;
+            this.Coordinate = coord;
         }
-
     }
-
 }

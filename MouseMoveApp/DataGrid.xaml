@@ -1,0 +1,22 @@
+﻿<Window x:Class="MouseMoveApp.DataGrid"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MouseMoveApp"
+        mc:Ignorable="d"
+        Title="Запись данных" Height="450" SizeToContent="Width">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0" x:Name="dataGridMouse">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Дата/время" Width="120" Binding="{Binding Path=Date_time}"/>
+                <DataGridTextColumn Header="Событие" Width="120" Binding="{Binding Path=Action_name}"/>
+                <DataGridTextColumn Header="Координаты" Width="120" Binding="{Binding Path=Coordinate}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label x:Name="clickCount" Grid.Row="1" Height="30" VerticalAlignment="Bottom" Background="AntiqueWhite"/>
+    </Grid>
+</Window>

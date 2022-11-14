@@ -5,6 +5,7 @@ using System.IO;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Data;
+using System.Collections.Generic;
 
 namespace MouseMoveApp
 {
@@ -20,6 +21,12 @@ namespace MouseMoveApp
             Login.Visibility = Visibility.Collapsed;
             Start.Visibility = Visibility.Collapsed;
             Stop.Visibility = Visibility.Collapsed;
+
+            //DataGrid dataGridList = new DataGrid();
+            //List<DataGrid> dataGrid = new List<DataGrid>();
+            //dataGrid.Add(new DataGrid() { Date_time = "", Action_name = "John Doe", Coordinate = "" });
+
+            //dataGridList.dataGridMouse.ItemsSource = dataGrid;
         }
 
         //static DataTable ExecuteSql(string command)
@@ -48,7 +55,7 @@ namespace MouseMoveApp
         {
             using (SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\blueb\OneDrive\Рабочий стол\Study\work\MouseMoveApp\MouseMoveApp\DataBase\MouseAction.db; Version=3;"))
             {
-                string command = "CREATE TABLE IF NOT EXISTS [dbMouseAction] " + "([Date_time] TEXT, " + "[Action_name] TEXT, " + "[Coordinate_name] TEXT)"; // создать таблицу, если её нет
+                string command = "CREATE TABLE IF NOT EXISTS [dbMouseAction] " + "([Date_time] TEXT, " + "[Action_name] TEXT, " + "[Coordinate] TEXT)"; // создать таблицу, если её нет
 
                 SQLiteCommand Command = new SQLiteCommand(command, connection);
 
@@ -113,8 +120,8 @@ namespace MouseMoveApp
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            ListInfo listInfo = new ListInfo();
-            listInfo.Show();
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Show();
 
             Start.Visibility = Visibility.Collapsed;
             Stop.Visibility = Visibility.Visible;
@@ -123,25 +130,27 @@ namespace MouseMoveApp
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
             int count = 0;
-            const int n = 50;
-            const int m = 4;
+            //const int n = 50;
+            //const int m = 4;
 
-            Point p = e.GetPosition(this);
+            //Point p = e.GetPosition(this);
 
-            for (int i = 0; i < n; i++)
+            //for (int i = 0; i < n; i++)
+            //{
+            //    for (int j = 0; j < m; j++)
+            //    {
+
+            //    }
+            //}
+
+            DataGrid listInfo = new DataGrid();
+
+            do
             {
-                for (int j = 0; j < m; j++)
-                {
-
-                }
-            }
-            ListInfo listInfo = new ListInfo();
-
-            if (count <= 50)
-            {
-                if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Pressed)
+                if (e.ChangedButton == MouseButton.Middle || e.ChangedButton == MouseButton.Left || e.ChangedButton == MouseButton.Right && e.ButtonState == MouseButtonState.Pressed)
                 {
                     count++;
+                    listInfo.clickCount.Content = String.Format("Количество записей: {0}", count);
 
                     using (SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\blueb\OneDrive\Рабочий стол\Study\work\MouseMoveApp\MouseMoveApp\DataBase\MouseAction.db; Version=3;"))
                     {
@@ -159,32 +168,13 @@ namespace MouseMoveApp
                     //listviewMouse.ItemsSource = dt.DefaultView;
                 }
 
-                else if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
-
-                {
-                    count++;
-                }
-
-                else if (e.ChangedButton == MouseButton.Right && e.ButtonState == MouseButtonState.Pressed)
-
-                {
-                    count++;
-                }
-            }
-            else
-            {
-                count = 0;
-            }
-
-            
-
-            listInfo.Content = String.Format("Количество записей: {0}", count);
+            } while (count == 50);
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            ListInfo listInfo = new ListInfo();
-            listInfo.Close();
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Close();
 
             Start.Visibility = Visibility.Visible;
             Stop.Visibility = Visibility.Collapsed;
@@ -192,6 +182,7 @@ namespace MouseMoveApp
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
+
             //string dt = DateTime.Now.ToString();
 
             //Point p = e.GetPosition(this);
