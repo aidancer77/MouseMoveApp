@@ -33,6 +33,5 @@ namespace MouseMoveApp
         {
             this.DialogResult = true;
         }
-
     }
 }

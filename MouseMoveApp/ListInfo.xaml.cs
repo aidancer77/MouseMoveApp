@@ -19,7 +19,6 @@ namespace MouseMoveApp
     /// </summary>
     public partial class ListInfo : Window
     {
-        public int id { get; set; }
         public string date_time { get; set; }
         public string action { get; set; }
         public string coord { get; set; }

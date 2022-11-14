@@ -7,15 +7,18 @@
         mc:Ignorable="d"
         Title="Запись данных" Height="450" SizeToContent="Width">
     <Grid>
-        <ListView x:Name="listviewMouse">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" x:Name="listviewMouse">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="№" Width="40" DisplayMemberBinding="{Binding Path=id}"/>
                     <GridViewColumn Header="Дата/время" Width="120" DisplayMemberBinding="{Binding Path=date_time}"/>
                     <GridViewColumn Header="Событие" Width="120" DisplayMemberBinding="{Binding Path=action}"/>
                     <GridViewColumn Header="Координаты" Width="120" DisplayMemberBinding="{Binding Path=coord}"/>
                 </GridView>
             </ListView.View>
         </ListView>
+        <Label x:Name="clickCount" Grid.Row="1" Height="30" VerticalAlignment="Bottom" Content="123"/>
     </Grid>
 </Window>

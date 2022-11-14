@@ -48,7 +48,7 @@ namespace MouseMoveApp
         {
             using (SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\blueb\OneDrive\Рабочий стол\Study\work\MouseMoveApp\MouseMoveApp\DataBase\MouseAction.db; Version=3;"))
             {
-                string command = "CREATE TABLE IF NOT EXISTS [dbMouseAction] " + "([Date_time] TEXT, " + "[Action_name] TEXT, " + "[Coordinate_name] TEXT)"; // создать таблицу, если её 
+                string command = "CREATE TABLE IF NOT EXISTS [dbMouseAction] " + "([Date_time] TEXT, " + "[Action_name] TEXT, " + "[Coordinate_name] TEXT)"; // создать таблицу, если её нет
 
                 SQLiteCommand Command = new SQLiteCommand(command, connection);
 
@@ -57,21 +57,20 @@ namespace MouseMoveApp
                 connection.Close();
             }
 
-            MessageBox.Show("База данных подключена!");
+            //MessageBox.Show("База данных подключена!");
 
             DataBase.Visibility = Visibility.Collapsed;
             Login.Visibility = Visibility.Visible;
-            Start.Visibility = Visibility.Collapsed;
-            Stop.Visibility = Visibility.Collapsed;
         }
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-
             AdminUser adminLogin = new AdminUser();
             AdminUser userLogin = new AdminUser();
 
-            //if (adminLogin.ShowDialog() == true)
+            //запрос на вход
+
+            //if (adminLogin.ShowDialog() == true) //выбран админ
             //{
             //    LoginWindow loginWindow = new LoginWindow();
 
@@ -88,36 +87,35 @@ namespace MouseMoveApp
             //        else
             //        {
             //            MessageBox.Show("Неверный логин или пароль");
+            //            DataBase.Visibility = Visibility.Collapsed;
+            //            Login.Visibility = Visibility.Visible;
             //        }
-            //    }
+            //    } //login password
             //    else
             //    {
             //        MessageBox.Show("Авторизация не пройдена");
             //    }
             //}
             //else 
-            if (userLogin.ShowDialog() == true)
+            if (userLogin.ShowDialog() == true) //выбран юзер
             {
                 MessageBox.Show("Вход выполнен");
-                DataBase.Visibility = Visibility.Collapsed;
-                Login.Visibility = Visibility.Collapsed;
-                Start.Visibility = Visibility.Visible;
-                Stop.Visibility = Visibility.Collapsed;
             }
             else
             {
                 MessageBox.Show("Вход не выполнен");
             }
-        }
 
+
+            Login.Visibility = Visibility.Collapsed;
+            Start.Visibility = Visibility.Visible;
+        }
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             ListInfo listInfo = new ListInfo();
             listInfo.Show();
 
-            DataBase.Visibility = Visibility.Collapsed;
-            Login.Visibility = Visibility.Collapsed;
             Start.Visibility = Visibility.Collapsed;
             Stop.Visibility = Visibility.Visible;
         }
@@ -137,65 +135,50 @@ namespace MouseMoveApp
 
                 }
             }
+            ListInfo listInfo = new ListInfo();
 
-
-            if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Pressed)
+            if (count <= 50)
             {
-                count++;
-
-                using (SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\blueb\OneDrive\Рабочий стол\Study\work\MouseMoveApp\MouseMoveApp\DataBase\MouseAction.db; Version=3;"))
+                if (e.ChangedButton == MouseButton.Middle && e.ButtonState == MouseButtonState.Pressed)
                 {
-                    connection.Open();
+                    count++;
 
-                    string command = "INSERT INTO [dbMouseAction] ([Date_time], [Action_name], [Coordinate_name] ) VALUES('01.01.2001', 'Колесико', '(p.X; p.Y)')";
+                    using (SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\blueb\OneDrive\Рабочий стол\Study\work\MouseMoveApp\MouseMoveApp\DataBase\MouseAction.db; Version=3;"))
+                    {
+                        connection.Open();
 
-                    SQLiteCommand Command = new SQLiteCommand(command, connection);
+                        string command = "INSERT INTO [dbMouseAction] ([Date_time], [Action_name], [Coordinate_name] ) VALUES('01.01.2001', 'Колесико', '(p.X; p.Y)')";
 
-                    Command.ExecuteNonQuery();
-                    connection.Close();
+                        SQLiteCommand Command = new SQLiteCommand(command, connection);
+
+                        Command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+
+                    //DataTable dt = ExecuteSql("SELECT * FROM dbMouseAction");
+                    //listviewMouse.ItemsSource = dt.DefaultView;
                 }
 
+                else if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
 
-                //DataTable dt = ExecuteSql("SELECT * FROM dbMouseAction");
-                //listviewMouse.ItemsSource = dt.DefaultView;
-            }
-
-            else if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
-
-            {
-                count++;
-
-                using (SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\blueb\OneDrive\Рабочий стол\Study\work\MouseMoveApp\MouseMoveApp\DataBase\MouseAction.db; Version=3;"))
                 {
-                    connection.Open();
+                    count++;
+                }
 
-                    string command = "INSERT INTO [dbMouseAction] ([Date_time], [Action_name], [Coordinate_name] ) VALUES('01.01.2001', 'ЛКМ', '(p.X; p.Y)')";
+                else if (e.ChangedButton == MouseButton.Right && e.ButtonState == MouseButtonState.Pressed)
 
-                    SQLiteCommand Command = new SQLiteCommand(command, connection);
-
-                    Command.ExecuteNonQuery();
-                    connection.Close();
+                {
+                    count++;
                 }
             }
-
-            else if (e.ChangedButton == MouseButton.Right && e.ButtonState == MouseButtonState.Pressed)
-
+            else
             {
-                count++;
-
-                using (SQLiteConnection connection = new SQLiteConnection(@"Data Source=C:\Users\blueb\OneDrive\Рабочий стол\Study\work\MouseMoveApp\MouseMoveApp\DataBase\MouseAction.db; Version=3;"))
-                {
-                    connection.Open();
-
-                    string command = "INSERT INTO [dbMouseAction] ([Date_time], [Action_name], [Coordinate_name] ) VALUES('01.01.2001', 'ПКМ', '(p.X; p.Y)')";
-
-                    SQLiteCommand Command = new SQLiteCommand(command, connection);
-
-                    Command.ExecuteNonQuery();
-                    connection.Close();
-                }
+                count = 0;
             }
 
+            
+
+            listInfo.Content = String.Format("Количество записей: {0}", count);
         }
 
         private void Stop_Click(object sender, RoutedEventArgs e)
@@ -203,22 +186,15 @@ namespace MouseMoveApp
             ListInfo listInfo = new ListInfo();
             listInfo.Close();
 
-            DataBase.Visibility = Visibility.Collapsed;
-            Login.Visibility = Visibility.Collapsed;
             Start.Visibility = Visibility.Visible;
             Stop.Visibility = Visibility.Collapsed;
         }
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
-            string dt = DateTime.Now.ToString();
+            //string dt = DateTime.Now.ToString();
 
-            Point p = e.GetPosition(this);
-
-            if (true)
-            {
-
-            }
+            //Point p = e.GetPosition(this);
 
         }
     }

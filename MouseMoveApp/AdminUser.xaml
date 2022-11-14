@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MouseMoveApp"
         mc:Ignorable="d"
-        Title="Authorization" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" Height="250" Width="350" ResizeMode="NoResize">
+        Title="Авторизация" WindowStartupLocation="CenterScreen" SizeToContent="Height" Width="300" ResizeMode="NoResize">
     
     <Grid  Margin="10 20">
         <Grid.RowDefinitions>
@@ -17,12 +17,12 @@
         <TextBlock Grid.Row="0" FontSize="15" FontFamily="Times New Roman"
                    VerticalAlignment="Center" HorizontalAlignment="Center">Войти как:</TextBlock>
 
-        <Button Name="admin" Grid.Row="1" Background="White" Foreground="Black" Width="110"
+        <Button x:Name="admin" Grid.Row="1" Background="White" Foreground="Black" Width="150"
                 VerticalAlignment="Center" HorizontalAlignment="Center"  
                 HorizontalContentAlignment="Center" FontSize="15" 
                 FontFamily="Times New Roman" Click="Admin_Click">Администратор</Button>
 
-        <Button Name="user" Grid.Row="2" Background="White" Foreground="Black" Width="110"
+        <Button x:Name="user" Grid.Row="2" Background="White" Foreground="Black" Width="150"
                 VerticalAlignment="Center" HorizontalAlignment="Center" 
                 HorizontalContentAlignment="Center" FontSize="15" 
                 FontFamily="Times New Roman" Click="User_Click">Пользователь</Button>
